@@ -1,4 +1,5 @@
 const tls = require('tls');
+const logger = require('./logger');
 
 const metadata = {
   ddsourcecategory: 'external',
@@ -33,17 +34,26 @@ function DataDog(server, apiKey, customTags) {
 }
 
 DataDog.prototype.log = (log, callback) => {
-  const socket = tls.connect(config.port, config.host, () => {
-    if (!socket.authorized) {
-      return callback('Error connecting to DataDog');
+
+  logger.info(`Sending axios to DataDog`);
+
+  axios.post(`https://http-intake.logs.datadoghq.com/v1/input`, log, {
+    headers: {
+      'DD-API-KEY': config.apiKey,
+      ContentType: 'application/json'
+    },
+    params: {
+      //?ddtags=<TAGS>&ddsource=<SOURCE>&service=<SERVICE>&hostname=<HOSTNAME>
+      ddsource: 'auth0',
+      service: 'auth0',
+      hostname: 'accounts.staging.stockx.io'
     }
-
-    // Merge the metadata with the log
-    const merge = Object.assign(metadata, log);
-    socket.write(`${config.apiKey} ${JSON.stringify(merge)}\r\n`);
-    socket.end();
-
-    return callback();
+  }).then(response => {
+    logger.info(`Got success response`);
+    logger.info(response);
+  }).catch(error => {
+    logger.info(`Got error`);
+    logger.info(error);
   });
 };
 
