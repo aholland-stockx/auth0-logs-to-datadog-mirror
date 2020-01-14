@@ -114,7 +114,7 @@
     "semver": "^5.1.0",
     "snyk": "^1.19.1",
     "splunk-logging": "^0.9.1",
-    "useragent": "2.1.6",
+    "useragent": "2.1.13",
     "webtask-tools": "^3.0.0",
     "winston": "^2.2.0"
   },
