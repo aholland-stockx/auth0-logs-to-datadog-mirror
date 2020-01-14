@@ -72,7 +72,7 @@ The following settings are optional:
 
 The `DATADOG_SERVER` can be set to:
 
-- `US` (default): which will send data to Datadog US servers: intake.logs.datadoghq.com:10516
+- `US` (default): which will send data to Datadog US servers: http-intake.logs.datadoghq.com:10516
 - `EU`: which will send data to Datadog EU servers: tcp-intake.logs.datadoghq.eu:443
 
 The `LOG_LEVEL` can be set to (setting it to a value will also send logs of a higher value):
