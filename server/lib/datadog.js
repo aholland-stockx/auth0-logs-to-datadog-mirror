@@ -36,9 +36,6 @@ function DataDog(server, apiKey, customTags) {
 
 DataDog.prototype.log = (log) => {
 
-  logger.info(`Calling axios. Here's the log`);
-  console.log(log);
-
   return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, log, {
     headers: {
       'Content-Type': 'application/json'
