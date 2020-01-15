@@ -37,18 +37,11 @@ function DataDog(server, apiKey, customTags) {
 DataDog.prototype.log = (log) => {
 
   logger.info(`Calling axios. Here's the log`);
-  logger.info(log);
+  console.log(log);
 
-  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input`, log, {
+  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, log, {
     headers: {
-      'DD-API-KEY': config.apiKey,
       ContentType: 'application/json'
-    },
-    params: {
-      //?ddtags=<TAGS>&ddsource=<SOURCE>&service=<SERVICE>&hostname=<HOSTNAME>
-      ddsource: 'auth0',
-      service: 'auth0',
-      hostname: 'accounts.staging.stockx.io'
     }
   }).then(response => {
     logger.info(`Got success response`);
