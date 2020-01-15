@@ -52,7 +52,8 @@ DataDog.prototype.log = (log) => {
     }
   }).then(response => {
     logger.info(`Got success response`);
-    logger.info(response);
+    console.log(response.data);
+    console.log(response.status);
   }).catch(error => {
     logger.info(`Got error`);
     logger.info(error);
