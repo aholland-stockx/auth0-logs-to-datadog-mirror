@@ -18,22 +18,6 @@ module.exports = storage =>
 
     const datadog = new DataDog(config('DATADOG_SERVER'), config('DATADOG_API_KEY'), config('DATADOG_CUSTOM_TAGS'));
 
-    const onLogsReceived = (logs) => { // eslint-disable-line consistent-return
-
-
-      if (!logs) {
-        logger.info('No logs');
-        return Promise.resolve();
-      }
-
-      logger.info(`Sending ${logs.length} logs to DataDog.`);
-
-      return async.eachLimit(logs, 10, (log) => {
-        logger.info('In each limit');
-        return datadog.log(log);
-      });
-    };
-
     const slack = new loggingTools.reporters.SlackReporter({
       hook: config('SLACK_INCOMING_WEBHOOK_URL'),
       username: 'auth0-logs-to-datadog',
@@ -87,7 +71,28 @@ module.exports = storage =>
     };
 
     return auth0logger
-      .run(onLogsReceived)
-      .then(status => console.log(status))
+      .run(logs => { // eslint-disable-line consistent-return
+
+        logger.info('Running');
+        console.log('Running');
+
+        if (!logs) {
+          logger.info('No logs');
+          return Promise.resolve();
+        }
+
+        logger.info(`Sending ${logs.length} logs to DataDog.`);
+
+        return async.eachLimit(logs, 10, (log) => {
+          logger.info('In each limit');
+          return datadog.log(log);
+        });
+      })
+      .then(status => {
+        logger.info('Done');
+        console.log('Done');
+        console.log(status);
+
+      })
       .catch(err => console.log(err));
   };
