@@ -19,13 +19,19 @@ module.exports = storage =>
     const datadog = new DataDog(config('DATADOG_SERVER'), config('DATADOG_API_KEY'), config('DATADOG_CUSTOM_TAGS'));
 
     const onLogsReceived = (logs, callback) => { // eslint-disable-line consistent-return
+
+
       if (!logs || !logs.length) {
+        logger.info('No logs');
         return callback();
       }
 
       logger.info(`Sending ${logs.length} logs to DataDog.`);
 
-      async.eachLimit(logs, 10, (log) => datadog.log(log)).then(() => callback());
+      async.eachLimit(logs, 10, (log) => {
+        logger.info('In each limit');
+        return datadog.log(log);
+      }).then(() => callback()).catch(error => callback(error));
     };
 
     const slack = new loggingTools.reporters.SlackReporter({

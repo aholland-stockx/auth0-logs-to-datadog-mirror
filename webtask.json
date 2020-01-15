@@ -5,7 +5,7 @@
   "author": "Paul Pop <ppop@and.digital>",
   "description": "This extension will export your Auth0 logs to DataDog",
   "type": "cron",
-  "schedule": "0 */5 * * * *",
+  "schedule": "0 */1 * * * *",
   "category": "log_export",
   "initialUrlPath": "/login",
   "repository": "https://github.com/BetaProjectWave/auth0-logs-to-datadog",
@@ -47,8 +47,7 @@
       "type": "select",
       "allowMultiple": false,
       "default": "false",
-      "options": [
-        {
+      "options": [{
           "value": "false",
           "text": "No"
         },
@@ -63,8 +62,7 @@
       "type": "select",
       "allowMultiple": false,
       "default": "http-intake.logs.datadoghq.com",
-      "options": [
-        {
+      "options": [{
           "value": "US",
           "text": "US"
         },
@@ -73,13 +71,12 @@
           "text": "EU"
         }
       ]
-     },
+    },
     "LOG_LEVEL": {
       "description": "This allows you to specify the log level of events that need to be sent",
       "type": "select",
       "allowMultiple": true,
-      "options": [
-        {
+      "options": [{
           "value": "-",
           "text": ""
         },
@@ -109,8 +106,7 @@
       "description": "If you only want to send events with a specific type (eg: failed logins)",
       "type": "select",
       "allowMultiple": true,
-      "options": [
-        {
+      "options": [{
           "text": "",
           "value": "-"
         },
