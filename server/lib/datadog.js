@@ -35,9 +35,9 @@ function DataDog(server, apiKey, customTags) {
 
 DataDog.prototype.log = (log, callback) => {
 
-  logger.info(`Sending axios to DataDog`);
+  logger.info(`Calling axios`);
 
-  axios.post(`https://http-intake.logs.datadoghq.com/v1/input`, log, {
+  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input`, log, {
     headers: {
       'DD-API-KEY': config.apiKey,
       ContentType: 'application/json'
@@ -51,9 +51,14 @@ DataDog.prototype.log = (log, callback) => {
   }).then(response => {
     logger.info(`Got success response`);
     logger.info(response);
+
+    callback();
+
   }).catch(error => {
     logger.info(`Got error`);
     logger.info(error);
+
+    callback(error);
   });
 };
 
