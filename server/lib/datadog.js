@@ -41,7 +41,7 @@ DataDog.prototype.log = (log) => {
 
   return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, log, {
     headers: {
-      ContentType: 'application/json'
+      'Content-Type': 'application/json'
     }
   }).then(response => {
     logger.info(`Got success response`);
