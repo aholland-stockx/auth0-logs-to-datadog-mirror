@@ -18,12 +18,12 @@ module.exports = storage =>
 
     const datadog = new DataDog(config('DATADOG_SERVER'), config('DATADOG_API_KEY'), config('DATADOG_CUSTOM_TAGS'));
 
-    const onLogsReceived = (logs, callback) => { // eslint-disable-line consistent-return
+    const onLogsReceived = (logs) => { // eslint-disable-line consistent-return
 
 
-      if (!logs || !logs.length) {
+      if (!logs) {
         logger.info('No logs');
-        return callback();
+        return Promise.resolve();
       }
 
       logger.info(`Sending ${logs.length} logs to DataDog.`);
