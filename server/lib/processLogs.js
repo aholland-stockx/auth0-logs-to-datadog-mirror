@@ -1,4 +1,3 @@
-const async = require('async');
 const moment = require('moment');
 const loggingTools = require('auth0-log-extension-tools');
 
