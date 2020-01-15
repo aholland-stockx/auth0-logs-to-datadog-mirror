@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BetaProjectWave/auth0-logs-to-datadog.git"
+    "url": "git+https://github.com/aholland-stockx/auth0-logs-to-datadog-mirror.git"
   },
   "bugs": {
-    "url": "https://github.com/BetaProjectWave/auth0-logs-to-datadog/issues"
+    "url": "https://github.com/aholland-stockx/auth0-logs-to-datadog-mirror/issues"
   },
   "license": "MIT",
   "author": "Paul Pop <ppop@and.digital>",
-  "homepage": "https://github.com/BetaProjectWave/auth0-logs-to-datadog#readme",
+  "homepage": "https://github.com/aholland-stockx/auth0-logs-to-datadog-mirror#readme",
   "auth0-extension": {
     "externals": [
       "async@2.1.2",
