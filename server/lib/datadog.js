@@ -33,9 +33,10 @@ function DataDog(server, apiKey, customTags) {
   }
 }
 
-DataDog.prototype.log = (log, callback) => {
+DataDog.prototype.log = (log) => {
 
-  logger.info(`Calling axios`);
+  logger.info(`Calling axios. Here's the log`);
+  logger.info(log);
 
   return axios.post(`https://http-intake.logs.datadoghq.com/v1/input`, log, {
     headers: {
@@ -49,16 +50,15 @@ DataDog.prototype.log = (log, callback) => {
       hostname: 'accounts.staging.stockx.io'
     }
   }).then(response => {
+
     logger.info(`Got success response`);
     logger.info(response);
 
-    callback();
+
 
   }).catch(error => {
     logger.info(`Got error`);
     logger.info(error);
-
-    callback(error);
   });
 };
 

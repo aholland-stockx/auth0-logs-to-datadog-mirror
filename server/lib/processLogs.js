@@ -25,17 +25,7 @@ module.exports = storage =>
 
       logger.info(`Sending ${logs.length} logs to DataDog.`);
 
-      async.eachLimit(logs, 10, (log, cb) => {
-        datadog.log(log, cb);
-      }, (err) => {
-        if (err) {
-          logger.error('Error occurred when sending logs to DataDog', err);
-          return callback(err);
-        }
-
-        logger.info('Upload complete.');
-        return callback();
-      });
+      async.eachLimit(logs, 10, (log) => datadog.log(log)).then(() => callback());
     };
 
     const slack = new loggingTools.reporters.SlackReporter({
@@ -102,7 +92,10 @@ module.exports = storage =>
         res.json(result);
       })
       .catch((err) => {
-        slack.send({ error: err, logsProcessed: 0 }, null);
+        slack.send({
+          error: err,
+          logsProcessed: 0
+        }, null);
         checkReportTime();
         next(err);
       });
