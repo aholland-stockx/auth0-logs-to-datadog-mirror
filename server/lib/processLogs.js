@@ -28,10 +28,10 @@ module.exports = storage =>
 
       logger.info(`Sending ${logs.length} logs to DataDog.`);
 
-      async.eachLimit(logs, 10, (log) => {
+      return async.eachLimit(logs, 10, (log) => {
         logger.info('In each limit');
         return datadog.log(log);
-      }).then(() => callback()).catch(error => callback(error));
+      });
     };
 
     const slack = new loggingTools.reporters.SlackReporter({
@@ -88,21 +88,6 @@ module.exports = storage =>
 
     return auth0logger
       .run(onLogsReceived)
-      .then((result) => {
-        if (result && result.status && result.status.error) {
-          slack.send(result.status, result.checkpoint);
-        } else if (config('SLACK_SEND_SUCCESS') === true || config('SLACK_SEND_SUCCESS') === 'true') {
-          slack.send(result.status, result.checkpoint);
-        }
-        checkReportTime();
-        res.json(result);
-      })
-      .catch((err) => {
-        slack.send({
-          error: err,
-          logsProcessed: 0
-        }, null);
-        checkReportTime();
-        next(err);
-      });
+      .then(status => console.log(status))
+      .catch(err => console.log(err));
   };
