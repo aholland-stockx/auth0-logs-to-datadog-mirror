@@ -83,10 +83,7 @@ module.exports = storage =>
 
         logger.info(`Sending ${logs.length} logs to DataDog.`);
 
-        return async.eachLimit(logs, 10, (log) => {
-          logger.info('In each limit');
-          return datadog.log(log);
-        });
+        return datadog.log(logs);
       })
       .then(status => {
         logger.info('Done');
