@@ -7,13 +7,15 @@ const metadata = {
 
 const config = {};
 
-function DataDog(server, apiKey, customTags) {
+function DataDog(apiKey, source, hostname) {
 
   if (!apiKey) {
     throw new Error('API Key is required for DataDog.');
   }
 
   config.apiKey = apiKey;
+  config.source = source;
+  config.hostname = hostname;
 
   if (customTags) {
     const matchedTags = customTags.match(/([^:|^,\W]+):([^,|^\W]+)/g);
@@ -25,11 +27,16 @@ function DataDog(server, apiKey, customTags) {
   }
 }
 
-DataDog.prototype.log = (log) => {
+DataDog.prototype.log = (logs) => {
 
-  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, logs, {
+  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}`, logs, {
     headers: {
       'Content-Type': 'application/json'
+    },
+    qs: {
+      ddsource: config.source,
+      hostname: config.hostname,
+      service: 'Auth0'
     }
   }).then(response => {
     console.log('Worked');

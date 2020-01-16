@@ -23,14 +23,18 @@
     "scopes": "read:logs delete:clients"
   },
   "secrets": {
-    "BATCH_SIZE": {
-      "description": "The amount of logs to batch before sending to DataDog. A single cron execution will send multiple batches. Maximum: 100.",
-      "default": 100
-    },
     "DATADOG_API_KEY": {
       "description": "DataDog API key",
       "required": true,
       "type": "password"
+    },
+    "DATADOG_SOURCE": {
+      "description": "The tenant sending the logs",
+      "required": true
+    },
+    "DATADOG_HOSTNAME": {
+      "description": "Hostname (url) of the tenant",
+      "required": true
     },
     "DATADOG_CUSTOM_TAGS": {
       "description": "Custom tags to send to DataDog",
@@ -38,39 +42,6 @@
     },
     "START_FROM": {
       "description": "Checkpoint ID of log to start from."
-    },
-    "SLACK_INCOMING_WEBHOOK_URL": {
-      "description": "Slack Incoming Webhook URL used to report statistics and possible failures"
-    },
-    "SLACK_SEND_SUCCESS": {
-      "description": "This setting will enable verbose notifications to Slack which are useful for troubleshooting",
-      "type": "select",
-      "allowMultiple": false,
-      "default": "false",
-      "options": [{
-          "value": "false",
-          "text": "No"
-        },
-        {
-          "value": "true",
-          "text": "Yes"
-        }
-      ]
-    },
-    "DATADOG_SERVER": {
-      "description": "Datadog server HQ. If you are running in EU datadog please change this to EU",
-      "type": "select",
-      "allowMultiple": false,
-      "default": "http-intake.logs.datadoghq.com",
-      "options": [{
-          "value": "US",
-          "text": "US"
-        },
-        {
-          "value": "EU",
-          "text": "EU"
-        }
-      ]
     },
     "LOG_LEVEL": {
       "description": "This allows you to specify the log level of events that need to be sent",

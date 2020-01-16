@@ -14,7 +14,7 @@ module.exports = storage =>
       return next();
     }
 
-    const datadog = new DataDog(config('DATADOG_SERVER'), config('DATADOG_API_KEY'), config('DATADOG_CUSTOM_TAGS'));
+    const datadog = new DataDog(config('DATADOG_API_KEY'), config('DATADOG_CUSTOM_TAGS'));
 
     const auth0logger = new loggingTools.LogsProcessor(storage, {
       domain: config('AUTH0_DOMAIN'),
