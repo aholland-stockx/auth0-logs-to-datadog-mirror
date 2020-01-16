@@ -36,10 +36,6 @@
       "description": "Hostname (url) of the tenant",
       "required": true
     },
-    "DATADOG_CUSTOM_TAGS": {
-      "description": "Custom tags to send to DataDog",
-      "example": "key1:value1,key2:value2"
-    },
     "START_FROM": {
       "description": "Checkpoint ID of log to start from."
     },

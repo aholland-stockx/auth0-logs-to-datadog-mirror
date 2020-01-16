@@ -16,15 +16,6 @@ function DataDog(apiKey, source, hostname) {
   config.apiKey = apiKey;
   config.source = source;
   config.hostname = hostname;
-
-  if (customTags) {
-    const matchedTags = customTags.match(/([^:|^,\W]+):([^,|^\W]+)/g);
-    if (!matchedTags || matchedTags.length < 1) {
-      throw new Error('Custom tags are not formatted properly. Format is comma-separated key:value.');
-    }
-
-    metadata.ddtags = customTags;
-  }
 }
 
 DataDog.prototype.log = (logs) => {
