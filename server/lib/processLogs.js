@@ -29,8 +29,7 @@ module.exports = storage =>
     return auth0logger
       .run(logs => {
 
-        logger.info('Running');
-        console.log('Running');
+        console.log('Running v2.0');
 
         if (!logs) {
           logger.info('No logs');
@@ -42,10 +41,8 @@ module.exports = storage =>
         return datadog.log(logs);
       })
       .then(status => {
-        logger.info('Done');
         console.log('Done');
         console.log(status);
-
       })
       .catch(err => console.log(err));
   };

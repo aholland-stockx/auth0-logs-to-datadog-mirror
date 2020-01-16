@@ -1,5 +1,3 @@
-const tls = require('tls');
-const logger = require('./logger');
 const axios = require('axios');
 
 const metadata = {
@@ -10,6 +8,7 @@ const metadata = {
 const config = {};
 
 function DataDog(server, apiKey, customTags) {
+
   if (!apiKey) {
     throw new Error('API Key is required for DataDog.');
   }
@@ -28,12 +27,7 @@ function DataDog(server, apiKey, customTags) {
 
 DataDog.prototype.log = (log) => {
 
-  console.log(config.apiKey);
-  console.log(log[0]);
-
-  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, {
-    message: 'Simple message from auth2'
-  }, {
+  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, logs, {
     headers: {
       'Content-Type': 'application/json'
     }
