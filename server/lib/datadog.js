@@ -28,21 +28,18 @@ function DataDog(server, apiKey, customTags) {
 
 DataDog.prototype.log = (log) => {
 
+  console.log(config.apiKey);
   console.log(log[0]);
 
   return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, [{
-    message: 'Sent from auth0'
-  }], {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }).then(response => {
-    logger.info(`Got success response`);
+    message: 'Simple message from auth2'
+  }]).then(response => {
+    console.log('Worked');
     console.log(response.data);
     console.log(response.status);
   }).catch(error => {
-    logger.info(`Got error`);
-    logger.info(error);
+    console.log('Error');
+    console.log(error);
   });
 };
 
