@@ -1,4 +1,3 @@
-const moment = require('moment');
 const loggingTools = require('auth0-log-extension-tools');
 
 const config = require('./config');
@@ -17,60 +16,18 @@ module.exports = storage =>
 
     const datadog = new DataDog(config('DATADOG_SERVER'), config('DATADOG_API_KEY'), config('DATADOG_CUSTOM_TAGS'));
 
-    const slack = new loggingTools.reporters.SlackReporter({
-      hook: config('SLACK_INCOMING_WEBHOOK_URL'),
-      username: 'auth0-logs-to-datadog',
-      title: 'Logs To DataDog'
-    });
-
-    const options = {
+    const auth0logger = new loggingTools.LogsProcessor(storage, {
       domain: config('AUTH0_DOMAIN'),
       clientId: config('AUTH0_CLIENT_ID'),
       clientSecret: config('AUTH0_CLIENT_SECRET'),
-      batchSize: parseInt(config('BATCH_SIZE'), 10),
+      batchSize: 100,
       startFrom: config('START_FROM'),
       logLevel: config('LOG_LEVEL'),
       logTypes: config('LOG_TYPES')
-    };
-
-    if (!options.batchSize || options.batchSize > 100) {
-      options.batchSize = 100;
-    }
-
-    if (options.logTypes && !Array.isArray(options.logTypes)) {
-      options.logTypes = options.logTypes.replace(/\s/g, '').split(',');
-    }
-
-    const auth0logger = new loggingTools.LogsProcessor(storage, options);
-
-    const sendDailyReport = (lastReportDate) => {
-      const current = new Date();
-
-      const end = current.getTime();
-      const start = end - 86400000;
-      auth0logger.getReport(start, end)
-        .then(report => slack.send(report, report.checkpoint))
-        .then(() => storage.read())
-        .then((data) => {
-          data.lastReportDate = lastReportDate; // eslint-disable-line no-param-reassign
-          return storage.write(data);
-        });
-    };
-
-    const checkReportTime = () => {
-      storage.read()
-        .then((data) => {
-          const now = moment().format('DD-MM-YYYY');
-          const reportTime = config('DAILY_REPORT_TIME') || 16;
-
-          if (data.lastReportDate !== now && new Date().getHours() >= reportTime) {
-            sendDailyReport(now);
-          }
-        });
-    };
+    });
 
     return auth0logger
-      .run(logs => { // eslint-disable-line consistent-return
+      .run(logs => {
 
         logger.info('Running');
         console.log('Running');

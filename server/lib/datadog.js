@@ -16,14 +16,6 @@ function DataDog(server, apiKey, customTags) {
 
   config.apiKey = apiKey;
 
-  if (server === 'US') {
-    config.host = 'http-intake.logs.datadoghq.com';
-    config.port = 443;
-  } else {
-    config.host = 'tcp-intake.logs.datadoghq.eu';
-    config.port = 443;
-  }
-
   if (customTags) {
     const matchedTags = customTags.match(/([^:|^,\W]+):([^,|^\W]+)/g);
     if (!matchedTags || matchedTags.length < 1) {
@@ -36,7 +28,9 @@ function DataDog(server, apiKey, customTags) {
 
 DataDog.prototype.log = (log) => {
 
-  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, log, {
+  console.log(log[0]);
+
+  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, [log[0]], {
     headers: {
       'Content-Type': 'application/json'
     }
