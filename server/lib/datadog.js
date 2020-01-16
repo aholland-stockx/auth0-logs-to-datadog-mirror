@@ -31,9 +31,13 @@ DataDog.prototype.log = (log) => {
   console.log(config.apiKey);
   console.log(log[0]);
 
-  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, [{
+  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, {
     message: 'Simple message from auth2'
-  }]).then(response => {
+  }, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(response => {
     console.log('Worked');
     console.log(response.data);
     console.log(response.status);
