@@ -30,7 +30,7 @@ DataDog.prototype.log = (log) => {
 
     console.log(log[0]);
 
-    return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, [log[0]], {
+    return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}?ddsource=auth2&service=auth2&hostname=accounts.staging.stockx.io`, logs.map(log => JSON.stringify(log)).join('\n'), {
         headers: {
             'Content-Type': 'application/json'
         }
