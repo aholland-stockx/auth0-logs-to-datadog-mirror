@@ -20,6 +20,9 @@ function DataDog(apiKey, source, hostname) {
 
 DataDog.prototype.log = (logs) => {
 
+  console.log(config.source);
+  console.log(config.hostname);
+
   return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}`, logs, {
     headers: {
       'Content-Type': 'application/json'
@@ -27,11 +30,10 @@ DataDog.prototype.log = (logs) => {
     qs: {
       ddsource: config.source,
       hostname: config.hostname,
-      service: 'Auth0'
+      service: 'auth0'
     }
   }).then(response => {
     console.log('Worked');
-    console.log(response.data);
     console.log(response.status);
   }).catch(error => {
     console.log('Error');
