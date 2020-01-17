@@ -23,7 +23,9 @@ DataDog.prototype.log = (logs) => {
   console.log(config.source);
   console.log(config.hostname);
 
-  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}`, [logs[0]], {
+  return axios.post(`https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}`, [{
+    message: 'worked'
+  }], {
     headers: {
       'Content-Type': 'application/json'
     },
