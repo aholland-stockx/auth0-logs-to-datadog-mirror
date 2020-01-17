@@ -29,7 +29,7 @@ DataDog.prototype.log = (logs) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    qs: {
+    params: {
       ddsource: config.source,
       hostname: config.hostname,
       service: 'auth0'
