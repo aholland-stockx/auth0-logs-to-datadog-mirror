@@ -22,7 +22,10 @@ DataDog.prototype.log = (logs) => {
 
     console.log(config.source);
     console.log(config.hostname);
-    console.log("jsonify test")
+    console.log("Beg of log test")
+    console.log(logs)
+    console.log("End of log test")
+
     var postaddr = `https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}`
 
     return axios.post(postaddr, logs, {
