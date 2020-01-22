@@ -23,11 +23,12 @@ DataDog.prototype.log = (logs) => {
     console.log(config.source);
     console.log(config.hostname);
 
-    var postaddr = `https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}`
+    var postaddr = `https://http-intake.logs.datadoghq.com/v1/input/`
 
     return axios.post(postaddr, logs, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'DD-API-KEY': `${config.apiKey}`
         },
         params: {
             ddsource: config.source,
