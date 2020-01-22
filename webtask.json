@@ -8,8 +8,8 @@
   "schedule": "0 */5 * * * *",
   "category": "log_export",
   "initialUrlPath": "/login",
-  "repository": "https://github.com/BetaProjectWave/auth0-logs-to-datadog",
-  "docsUrl": "https://github.com/BetaProjectWave/auth0-logs-to-datadog#readme",
+  "repository": "https://github.com/aholland-stockx/auth0-logs-to-datadog-mirror",
+  "docsUrl": "https://github.com/aholland-stockx/auth0-logs-to-datadog-mirror#readme",
   "logoUrl": "https://www.getpostman.com/img/v2/integrations/datadog-logo.png",
   "keywords": [
     "auth0",
@@ -28,11 +28,11 @@
       "required": true
     },
     "DATADOG_SOURCE": {
-      "description": "The tenant sending the logs",
+      "description": "The tenant sending the logs to DataDog",
       "required": true
     },
     "DATADOG_HOSTNAME": {
-      "description": "Hostname (url) of the tenant",
+      "description": "Hostname (URL) of the tenant",
       "required": true
     },
     "START_FROM": {
