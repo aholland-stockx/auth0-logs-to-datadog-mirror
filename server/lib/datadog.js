@@ -27,7 +27,7 @@ DataDog.prototype.log = (logs) => {
 
     return axios.post(postaddr, logs, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/plain'
         },
         params: {
             ddsource: config.source,
