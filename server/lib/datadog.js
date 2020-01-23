@@ -22,6 +22,9 @@ DataDog.prototype.log = (logs) => {
 
     console.log(config.source);
     console.log(config.hostname);
+    for (var log in logs){
+        console.log(log)
+    }
 
     var postaddr = `https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}`
 
