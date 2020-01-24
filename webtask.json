@@ -5,7 +5,7 @@
   "author": "Paul Pop <ppop@and.digital>",
   "description": "This extension will export your Auth0 logs to DataDog",
   "type": "cron",
-  "schedule": "0 */5 * * * *",
+  "schedule": "0 */1 * * * *",
   "category": "log_export",
   "initialUrlPath": "/login",
   "repository": "https://github.com/aholland-stockx/auth0-logs-to-datadog-mirror",
