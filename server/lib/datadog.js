@@ -27,9 +27,9 @@ DataDog.prototype.log = (logs) => {
 
     var cur = new Date()
     var date, id;
-    for (var log in logs) {
-        date = log.date
-        id = log.log_id
+    for (var i in logs) {
+        date = logs[i].date
+        id = logs[i].log_id
         console.log(`${id}:\t${date}`) 
     }
 
