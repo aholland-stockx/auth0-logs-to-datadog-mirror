@@ -25,14 +25,6 @@ DataDog.prototype.log = (logs) => {
 
     var postaddr = `https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}`
 
-    var cur = new Date()
-    var date, id;
-    for (var i in logs) {
-        date = logs[i].date
-        id = logs[i].log_id
-        console.log(`${id}:\t${date}`) 
-    }
-
     return axios.post(postaddr, logs, {
         headers: {
             'Content-Type': 'application/json'
@@ -40,14 +32,14 @@ DataDog.prototype.log = (logs) => {
         params: {
             ddsource: config.source,
             hostname: config.hostname,
-            service: 'auth9'
+            service: 'auth0'
         }
     }).then(response => {
         console.log('Worked');
         console.log(response.status);
-        console.log(`last id:\t${id}`)
-        console.log(`last date:\t${date}`)
-        console.log(`cur:\t${cur.toISOString()}`)
+        const last = logs.length - 1
+        console.log(`last id:\t${logs[last].id}`)
+        console.log(`last date:\t${logs[last].date}`)
     }).catch(error => {
         console.log('Error');
         console.log(error);
