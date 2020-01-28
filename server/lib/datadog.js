@@ -25,11 +25,13 @@ DataDog.prototype.log = (logs) => {
 
     var postaddr = `https://http-intake.logs.datadoghq.com/v1/input/${config.apiKey}`
 
-    try {
-        var json = JSON.parse(JSON.stringify(logs))
-    }
-    catch(error) {
-        console.error(error)
+    var cur = new Date()
+    console.log(`cur:\t${cur.toISOString()}`)
+
+    for(var log in logs) {
+        date = log["date"]
+        id = log["id"]
+        console.log(`${id}:\t${date.toISOString()}`)
     }
 
     return axios.post(postaddr, json, {
