@@ -35,8 +35,7 @@ DataDog.prototype.log = (logs) => {
             service: 'auth0'
         }
     }).then(response => {
-        console.log('Worked');
-        console.log(response.status);
+        console.log("Successfully sent logs")
         const last = logs.length - 1
         console.log(`last id:\t${logs[last].id}`)
         console.log(`last date:\t${logs[last].date}`)
