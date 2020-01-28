@@ -27,14 +27,12 @@ DataDog.prototype.log = (logs) => {
 
     var cur = new Date()
     console.log(`cur:\t${cur.toISOString()}`)
-
-    for(var log in logs) {
-        date = log["date"]
-        id = log["id"]
-        console.log(`${id}:\t${date.toISOString()}`)
+    console.log(logs)
+    for (var log in logs) {
+        console.log(log) 
     }
 
-    return axios.post(postaddr, json, {
+    return axios.post(postaddr, logs, {
         headers: {
             'Content-Type': 'application/json'
         },
