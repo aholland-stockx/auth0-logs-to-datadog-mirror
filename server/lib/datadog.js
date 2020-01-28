@@ -37,7 +37,7 @@ DataDog.prototype.log = (logs) => {
     }).then(response => {
         console.log("Successfully sent logs")
         const last = logs.length - 1
-        console.log(`last id:\t${logs[last].id}`)
+        console.log(`last id:\t${logs[last].log_id}`)
         console.log(`last date:\t${logs[last].date}`)
     }).catch(error => {
         console.log('Error');
