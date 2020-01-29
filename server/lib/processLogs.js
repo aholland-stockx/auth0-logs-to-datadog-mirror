@@ -14,13 +14,14 @@ module.exports = storage =>
             return next();
         }
 
+        console.log(`schedule:\t${wtBody.schedule}`)
         const datadog = new DataDog(config('DATADOG_API_KEY'), config('DATADOG_SOURCE'), config('DATADOG_HOSTNAME'));
 
         const auth0logger = new loggingTools.LogsProcessor(storage, {
             domain: config('AUTH0_DOMAIN'),
             clientId: config('AUTH0_CLIENT_ID'),
             clientSecret: config('AUTH0_CLIENT_SECRET'),
-            batchSize: 100,
+            batchSize: 200,
             startFrom: config('START_FROM'),
             logLevel: config('LOG_LEVEL'),
             logTypes: config('LOG_TYPES')
